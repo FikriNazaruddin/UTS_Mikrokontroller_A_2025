@@ -3,20 +3,18 @@ import time
 import tkinter as tk
 from tkinter import ttk
 
-# === Konfigurasi Serial ===
 esp = serial.Serial('COM5', 115200, timeout=1)
-time.sleep(2)  # tunggu ESP32 siap
+time.sleep(2) 
 
-# === Fungsi Kirim Perintah ===
 def send_command(cmd):
     esp.write((cmd + '\n').encode())
 
 def set_speed(val):
     try:
-        speed = int(float(val))  # konversi aman dari string float ke int
+        speed = int(float(val))
         send_command(f"SPEED {speed}")
     except ValueError:
-        pass  # abaikan jika slider belum menghasilkan nilai valid
+        pass
 
 def motor_on():
     send_command("ON")
@@ -70,3 +68,4 @@ def on_slider_move(val):
 speed_slider.config(command=on_slider_move)
 
 root.mainloop()
+
